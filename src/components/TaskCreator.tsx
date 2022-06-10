@@ -14,12 +14,6 @@ export const TaskCreator = (props: any) => {
     setNewTaskName("")
   }
 
-  const logout = () => {
-    localStorage.setItem("password", "")
-    localStorage.setItem("userName", "")
-    window.location.reload()
-  }
-
   return (
     <Container
       sx={{

@@ -19,6 +19,7 @@ const App: FC = () => {
   const [userName, setUserName] = useState<string>(
     localStorage.getItem("userName") || ""
   )
+
   const [taskItems, setTaskItems] = useState<TaskProp[]>(
     JSON.parse(localStorage.getItem("tasks") || "")
   )
@@ -42,6 +43,12 @@ const App: FC = () => {
     else console.log("Ya existe la task")
   }
 
+  const logout = () => {
+    localStorage.removeItem("password")
+    localStorage.removeItem("userName")
+    window.location.reload()
+  }
+
   const deleteTask = (taskNameToDelete: string): void => {
     setTaskItems(
       taskItems.filter((task) => {
@@ -50,10 +57,11 @@ const App: FC = () => {
     )
   }
 
-  const toggleTask = (task: TaskProp) =>
+  const toggleTask = (task: TaskProp) => {
     setTaskItems(
       taskItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t))
     )
+  }
 
   if (
     localStorage.getItem("userName") === "abc@email.com" &&
@@ -64,13 +72,14 @@ const App: FC = () => {
         component="form"
         sx={{
           p: "2px 4px",
+          paddingBottom: "20px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           width: "100%",
         }}
       >
-        <TaskBanner userName={userName} />
+        <TaskBanner userName={userName} logout={logout} />
 
         <TableContainer
           component={Paper}
