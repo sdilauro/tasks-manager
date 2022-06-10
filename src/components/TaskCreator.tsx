@@ -1,5 +1,5 @@
 import { AddBox } from "@mui/icons-material"
-import { Button, Container, Paper, TextField } from "@mui/material"
+import { Button, Container, IconButton, Paper, TextField } from "@mui/material"
 import React, { useState } from "react"
 
 export const TaskCreator = (props: any) => {
@@ -22,6 +22,7 @@ export const TaskCreator = (props: any) => {
         display: "flex",
         alignItems: "center",
         width: "100%",
+        color: "tomato",
       }}
     >
       <TextField
@@ -33,15 +34,16 @@ export const TaskCreator = (props: any) => {
         value={newTaskName}
         onChange={updateNewTaskValue}
       />
-      <Button
+      <IconButton
         key={props.id}
-        color="primary"
+        color="inherit"
         onClick={() => {
           createNewTask()
         }}
+        size="large"
       >
         <AddBox />
-      </Button>
+      </IconButton>
     </Container>
   )
 }

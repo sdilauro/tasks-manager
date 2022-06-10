@@ -1,5 +1,11 @@
 import { Delete } from "@mui/icons-material"
-import { Checkbox, TableCell, TableRow, IconButton } from "@mui/material"
+import {
+  Checkbox,
+  TableCell,
+  TableRow,
+  IconButton,
+  Container,
+} from "@mui/material"
 import { TaskProp } from "../Interfaces"
 
 interface Props {
@@ -19,7 +25,6 @@ export const TaskRow = ({ task, deleteTask, toggleTask }: Props) => {
           checked={task.done}
         />
         <IconButton
-          color="primary"
           onClick={() => {
             deleteTask(task.name)
           }}

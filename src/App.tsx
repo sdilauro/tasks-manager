@@ -14,6 +14,7 @@ import { TaskCreator } from "./components/TaskCreator"
 import { VisibilityControl } from "./components/VisibilityControl"
 import Login from "./Login"
 import { TaskProp } from "./Interfaces"
+import { Height } from "@mui/icons-material"
 
 const App: FC = () => {
   const [userName, setUserName] = useState<string>(
@@ -71,12 +72,11 @@ const App: FC = () => {
       <Paper
         component="form"
         sx={{
-          p: "2px 4px",
-          paddingBottom: "20px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           width: "100%",
+          minHeight: "100vh",
         }}
       >
         <TaskBanner userName={userName} logout={logout} />
