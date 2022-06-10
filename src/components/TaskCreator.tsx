@@ -1,3 +1,5 @@
+import { AddBox } from "@mui/icons-material"
+import { Button, Container, Paper, TextField } from "@mui/material"
 import React, { useState } from "react"
 
 export const TaskCreator = (props: any) => {
@@ -19,19 +21,33 @@ export const TaskCreator = (props: any) => {
   }
 
   return (
-    <div className="d-flex justify-content-center align-items-center p-2">
-      <input
-        type="text"
-        className="form-control"
+    <Container
+      sx={{
+        marginBottom: "20px",
+        marginTop: "20px",
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <TextField
+        fullWidth
+        size="small"
+        id="outlined-basic"
+        label="Nueva tarea"
+        variant="outlined"
         value={newTaskName}
         onChange={updateNewTaskValue}
       />
-      <button className="ml-5 btn btn-primary" onClick={createNewTask}>
-        Agregar
-      </button>
-      <button className="ml-5 btn btn-primary" onClick={logout}>
-        Logout
-      </button>
-    </div>
+      <Button
+        key={props.id}
+        color="primary"
+        onClick={() => {
+          createNewTask()
+        }}
+      >
+        <AddBox />
+      </Button>
+    </Container>
   )
 }

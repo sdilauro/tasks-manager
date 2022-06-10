@@ -1,17 +1,18 @@
-import React from "react"
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material"
 
 export const VisibilityControl = (props: any) => {
   return (
-    <div className="d-flex justify-content-center">
-      <input
-        type="checkbox"
-        className="form-check-input"
-        checked={props.isChecked}
-        onChange={(e) => props.callback(e.target.checked)}
+    <FormGroup>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={props.isChecked}
+            onChange={(e) => props.callback(e.target.checked)}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+        }
+        label="Ver completadas"
       />
-      <label htmlFor="form-check-label text-center">
-        Mostrar {props.description}
-      </label>
-    </div>
+    </FormGroup>
   )
 }

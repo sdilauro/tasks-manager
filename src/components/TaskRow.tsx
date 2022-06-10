@@ -1,20 +1,32 @@
-import React from "react"
+import { Delete } from "@mui/icons-material"
+import { Checkbox, TableCell, TableRow, IconButton } from "@mui/material"
+import { TaskProp } from "../Interfaces"
 
-export type TaskProp = {
-  name: string
-  done: boolean
-  toggleTask?: any
+interface Props {
+  task: TaskProp
+  deleteTask(taskNameToDelete: string): void
+  toggleTask(task: TaskProp): void
 }
 
-export const TaskRow = (props: TaskProp) => (
-  <tr key={props.name}>
-    <td>{props.name}</td>
-    <td>
-      <input
-        type="checkbox"
-        checked={props.done}
-        onChange={() => props.toggleTask(props)}
-      />
-    </td>
-  </tr>
-)
+export const TaskRow = ({ task, deleteTask, toggleTask }: Props) => {
+  return (
+    <TableRow>
+      <TableCell align="left">{task.name}</TableCell>
+      <TableCell align="center" sx={{ width: "100px" }}>
+        <Checkbox
+          onChange={(e) => toggleTask(task)}
+          inputProps={{ "aria-label": "controlled" }}
+          checked={task.done}
+        />
+        <IconButton
+          color="primary"
+          onClick={() => {
+            deleteTask(task.name)
+          }}
+        >
+          <Delete />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  )
+}
