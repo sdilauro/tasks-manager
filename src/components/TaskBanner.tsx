@@ -11,6 +11,7 @@ export const TaskBanner = ({ userName, logout }: Props) => {
   return (
     <Container
       sx={{
+        maxWidth: "100%",
         display: "flex",
         width: "100%",
         justifyContent: "space-between",

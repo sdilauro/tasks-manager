@@ -1,5 +1,7 @@
 import {
+  Alert,
   Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -14,9 +16,15 @@ import { TaskCreator } from "./components/TaskCreator"
 import { VisibilityControl } from "./components/VisibilityControl"
 import Login from "./Login"
 import { TaskProp } from "./Interfaces"
-import { Height } from "@mui/icons-material"
+import React from "react"
 
 const App: FC = () => {
+  const messages: string[] = [
+    "Se ha renombrado la tarea con éxito",
+    "No se puede ingresar un nombre vacío",
+    "Ya existe una tarea con ese nombre",
+    "La tarea fue agregada con éxito",
+  ]
   const [userName, setUserName] = useState<string>(
     localStorage.getItem("userName") || ""
   )
@@ -31,8 +39,9 @@ const App: FC = () => {
   }, [taskItems])
 
   const AddTask = (taskName: string): void => {
-    if (!taskItems.find((t, index) => t.name === taskName))
-      if (taskName !== "")
+    if (!taskItems.find((t) => t.name === taskName))
+      if (taskName !== "") {
+        handleClickSuccessSecond()
         setTaskItems([
           ...taskItems,
           {
@@ -40,8 +49,8 @@ const App: FC = () => {
             done: false,
           },
         ])
-      else console.log("No puede ingresar task vacía")
-    else console.log("Ya existe la task")
+      } else handleClickErrorFirst()
+    else handleClickErrorSecond()
   }
 
   const logout = () => {
@@ -53,7 +62,7 @@ const App: FC = () => {
   const deleteTask = (taskNameToDelete: string): void => {
     setTaskItems(
       taskItems.filter((task) => {
-        return task.name != taskNameToDelete
+        return task.name !== taskNameToDelete
       })
     )
   }
@@ -64,6 +73,53 @@ const App: FC = () => {
     )
   }
 
+  const [errorOpenFirst, setErrorOpenFirst] = useState<boolean>(false)
+  const [errorOpenSecond, setErrorOpenSecond] = useState<boolean>(false)
+  const [successOpen, setSuccessOpen] = useState<boolean>(false)
+  const [successOpenSecond, setSuccessOpenSecond] = useState<boolean>(false)
+
+  const handleClickErrorFirst = () => {
+    setErrorOpenFirst(true)
+  }
+
+  const handleClickErrorSecond = () => {
+    setErrorOpenSecond(true)
+  }
+
+  const handleClickSuccess = () => {
+    setSuccessOpen(true)
+  }
+
+  const handleClickSuccessSecond = () => {
+    setSuccessOpenSecond(true)
+  }
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return
+    }
+
+    setSuccessOpen(false)
+    setSuccessOpenSecond(false)
+    setErrorOpenFirst(false)
+    setErrorOpenSecond(false)
+  }
+
+  const editTask = (originalName: string, newName: string) => {
+    if (!taskItems.find((t) => t.name === newName))
+      if (newName !== "") {
+        setTaskItems(
+          taskItems.map((t) =>
+            t.name === originalName ? { ...t, name: newName } : t
+          )
+        )
+        handleClickSuccess()
+      } else return handleClickErrorFirst()
+    else return handleClickErrorSecond()
+  }
   if (
     localStorage.getItem("userName") === "abc@email.com" &&
     localStorage.getItem("password") === "password"
@@ -103,7 +159,7 @@ const App: FC = () => {
                 }}
               >
                 <TableCell align="left">Descripción</TableCell>
-                <TableCell align="center" sx={{ width: "100px" }}>
+                <TableCell align="center" sx={{ width: "150px" }}>
                   Acciones
                 </TableCell>
               </TableRow>
@@ -115,11 +171,40 @@ const App: FC = () => {
                   task={row}
                   deleteTask={deleteTask}
                   toggleTask={toggleTask}
+                  editTask={editTask}
                 />
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <Snackbar
+          open={errorOpenFirst}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="error">{messages[1]}</Alert>
+        </Snackbar>
+        <Snackbar
+          open={errorOpenSecond}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="error">{messages[2]}</Alert>
+        </Snackbar>
+        <Snackbar
+          open={successOpen}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="success">{messages[0]}</Alert>
+        </Snackbar>
+        <Snackbar
+          open={successOpenSecond}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="success">{messages[3]}</Alert>
+        </Snackbar>
       </Paper>
     )
   else return <Login />
