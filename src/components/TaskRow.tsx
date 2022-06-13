@@ -43,7 +43,9 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
   return (
     <TableRow>
       <TableCell align="left">
-        <Typography fontStyle={task.done ? "normal" : "oblique"}>
+        <Typography
+          sx={{ textDecoration: task.done ? "line-through" : "none" }}
+        >
           {task.name}
         </Typography>
       </TableCell>
