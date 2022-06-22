@@ -46,7 +46,7 @@ const Login = () => {
   }, [username, password])
 
   const handleLogin = () => {
-    if (username === "abc@email.com" && password === "password") {
+    if (password === "password") {
       localStorage.setItem("userName", username)
       localStorage.setItem("password", password)
       setHelperText("")

@@ -145,10 +145,7 @@ const App: FC = () => {
         />
       ))
 
-  if (
-    localStorage.getItem("userName") === "abc@email.com" &&
-    localStorage.getItem("password") === "password"
-  )
+  if (localStorage.getItem("password") === "password")
     return (
       <Paper
         component="form"
