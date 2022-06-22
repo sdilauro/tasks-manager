@@ -19,6 +19,9 @@ import { TaskProp } from "./Interfaces"
 import React from "react"
 
 const App: FC = () => {
+  if (localStorage.getItem("tasks") === null) {
+    localStorage.setItem("tasks", "[]")
+  }
   const messages: string[] = [
     "Se ha renombrado la tarea con éxito",
     "No se puede ingresar un nombre vacío",
@@ -32,11 +35,16 @@ const App: FC = () => {
   const [taskItems, setTaskItems] = useState<TaskProp[]>(
     JSON.parse(localStorage.getItem("tasks") || "")
   )
-  const [showCompleted, setShowCompleted] = useState<boolean>(true)
+
+  const [showCompleted, setShowCompleted] = useState<boolean>(false)
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(taskItems))
   }, [taskItems])
+
+  useEffect(() => {
+    localStorage.setItem("showCompleted", String(showCompleted))
+  }, [showCompleted])
 
   const AddTask = (taskName: string): void => {
     if (!taskItems.find((t) => t.name === taskName))
@@ -120,6 +128,20 @@ const App: FC = () => {
       } else return handleClickErrorFirst()
     else return handleClickErrorSecond()
   }
+
+  const taskTableRows = (doneValue: boolean) =>
+    taskItems
+      .filter((task) => task.done === doneValue)
+      .map((row: TaskProp, key: number) => (
+        <TaskRow
+          key={key}
+          task={row}
+          deleteTask={deleteTask}
+          toggleTask={toggleTask}
+          editTask={editTask}
+        />
+      ))
+
   if (
     localStorage.getItem("userName") === "abc@email.com" &&
     localStorage.getItem("password") === "password"
@@ -164,19 +186,48 @@ const App: FC = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {taskItems.map((row: TaskProp, key: number) => (
-                <TaskRow
-                  key={key}
-                  task={row}
-                  deleteTask={deleteTask}
-                  toggleTask={toggleTask}
-                  editTask={editTask}
-                />
-              ))}
-            </TableBody>
+            <TableBody>{taskTableRows(false)}</TableBody>
           </Table>
         </TableContainer>
+
+        <VisibilityControl
+          isChecked={showCompleted}
+          label={"Ver completadas (" + taskTableRows(true).length + ")"}
+          callback={(checked: boolean | ((prevState: boolean) => boolean)) =>
+            setShowCompleted(checked)
+          }
+        />
+        {showCompleted && (
+          <TableContainer
+            component={Paper}
+            sx={{
+              width: "90%",
+              marginDown: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Table
+              aria-label="simple table"
+              sx={{ width: "100%", marginDown: "10px" }}
+            >
+              <TableHead>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                  }}
+                >
+                  <TableCell align="left">Descripción</TableCell>
+                  <TableCell align="center" sx={{ width: "150px" }}>
+                    Acciones
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{taskTableRows(true)}</TableBody>
+            </Table>
+          </TableContainer>
+        )}
         <Snackbar
           open={errorOpenFirst}
           autoHideDuration={2000}

@@ -11,7 +11,7 @@ export const VisibilityControl = (props: any) => {
             inputProps={{ "aria-label": "controlled" }}
           />
         }
-        label="Ver completadas"
+        label={props.label}
       />
     </FormGroup>
   )
