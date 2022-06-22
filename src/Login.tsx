@@ -53,7 +53,7 @@ const Login = () => {
       setIsError(false)
       window.location.reload()
     } else {
-      setHelperText("Incorrect username or password")
+      setHelperText("Contraseña incorrecta, ingrese: password")
       setIsError(true)
     }
   }
@@ -72,7 +72,9 @@ const Login = () => {
 
   return (
     <form noValidate autoComplete="off">
-      <Card>
+      <Card
+        sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+      >
         <CardHeader title="Login App" />
         <CardContent>
           <div>
@@ -81,8 +83,8 @@ const Login = () => {
               fullWidth
               id="username"
               type="email"
-              label="Username"
-              placeholder="Username"
+              label="Usuario"
+              placeholder="Usuario"
               margin="normal"
               onChange={handleUsernameChange}
             />
@@ -91,8 +93,8 @@ const Login = () => {
               fullWidth
               id="password"
               type="password"
-              label="Password"
-              placeholder="Password"
+              label="Contraseña"
+              placeholder="Contraseña (ingresar: password)"
               margin="normal"
               helperText={helperText}
               onChange={handlePasswordChange}
@@ -107,7 +109,7 @@ const Login = () => {
             onClick={handleLogin}
             disabled={isButtonDisabled}
           >
-            Login
+            Iniciar sesión
           </Button>
         </CardActions>
       </Card>
