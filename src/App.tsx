@@ -20,7 +20,10 @@ import React from "react"
 
 const App: FC = () => {
   if (localStorage.getItem("tasks") === null) {
-    localStorage.setItem("tasks", "[]")
+    localStorage.setItem(
+      "tasks",
+      "[]"
+    ) /*Acá debería consultar los datos de login y cargar las tasks del usuario conectado*/
   }
   const messages: string[] = [
     "Se ha renombrado la tarea con éxito",
