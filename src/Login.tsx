@@ -28,7 +28,6 @@ const initialState: State = {
 }
 
 const Login = () => {
-  //const classes = useStyles()
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
     initialState.isButtonDisabled
   )

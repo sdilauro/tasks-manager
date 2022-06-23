@@ -21,7 +21,7 @@ export const TaskCreator = (props: any) => {
         display: "flex",
         alignItems: "center",
         width: "100%",
-        color: "tomato",
+        color: "secondary",
       }}
     >
       <TextField
@@ -42,7 +42,7 @@ export const TaskCreator = (props: any) => {
       />
       <IconButton
         key={props.id}
-        color="inherit"
+        color="primary"
         onClick={() => {
           createNewTask()
         }}

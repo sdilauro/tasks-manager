@@ -19,11 +19,11 @@ export const TaskBanner = ({ userName, logout }: Props) => {
         marginBottom: "35px",
         paddingTop: "15px",
         paddingBottom: "15px",
-        backgroundColor: "tomato",
+        backgroundColor: "#1976d2",
         color: "white",
       }}
     >
-      <Typography>Lista de tareas de {userName}</Typography>
+      <Typography>Lista de tareas</Typography>
       <IconButton onClick={logout} color="inherit">
         <LogoutIcon />
       </IconButton>
