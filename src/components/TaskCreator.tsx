@@ -1,5 +1,9 @@
 import { AddBox } from "@mui/icons-material"
+<<<<<<< HEAD
 import { Container, IconButton, TextField } from "@mui/material"
+=======
+import { Button, Container, IconButton, Paper, TextField } from "@mui/material"
+>>>>>>> parent of e45a79d (Wip)
 import React, { useState } from "react"
 
 export const TaskCreator = (props: any) => {
@@ -32,13 +36,6 @@ export const TaskCreator = (props: any) => {
         variant="outlined"
         value={newTaskName}
         onChange={updateNewTaskValue}
-        onKeyPress={(ev) => {
-          console.log(`Pressed keyCode ${ev.key}`)
-          if (ev.key === "Enter" || ev.key === "NumpadEnter") {
-            createNewTask()
-            ev.preventDefault()
-          }
-        }}
       />
       <IconButton
         key={props.id}

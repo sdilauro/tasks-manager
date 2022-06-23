@@ -8,7 +8,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material"
 import { FC, useEffect, useState } from "react"
 import { TaskRow } from "./components/TaskRow"
@@ -68,8 +67,6 @@ const App: FC = () => {
   const logout = () => {
     localStorage.removeItem("password")
     localStorage.removeItem("userName")
-    localStorage.removeItem("tasks")
-    localStorage.removeItem("showCompleted")
     window.location.reload()
   }
 
@@ -173,30 +170,24 @@ const App: FC = () => {
           }}
         >
           <TaskCreator callback={AddTask} />
-          {taskTableRows(false).length > 0 ? (
-            <Table
-              aria-label="simple table"
-              sx={{ width: "100%", marginDown: "10px" }}
-            >
-              <TableHead>
-                <TableRow
-                  sx={{
-                    width: "100%",
-                  }}
-                >
-                  <TableCell align="left">Descripción</TableCell>
-                  <TableCell align="center" sx={{ width: "150px" }}>
-                    Acciones
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{taskTableRows(false)}</TableBody>
-            </Table>
-          ) : (
-            <Typography sx={{ marginBottom: "15px" }}>
-              No tiene tareas sin completar.
-            </Typography>
-          )}
+          <Table
+            aria-label="simple table"
+            sx={{ width: "100%", marginDown: "10px" }}
+          >
+            <TableHead>
+              <TableRow
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <TableCell align="left">Descripción</TableCell>
+                <TableCell align="center" sx={{ width: "150px" }}>
+                  Acciones
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{taskTableRows(false)}</TableBody>
+          </Table>
         </TableContainer>
 
         <VisibilityControl
@@ -217,31 +208,26 @@ const App: FC = () => {
               alignItems: "center",
             }}
           >
-            {taskTableRows(true).length > 0 ? (
-              <Table
-                aria-label="simple table"
-                sx={{ width: "100%", marginDown: "10px" }}
-              >
-                <TableHead>
-                  <TableRow
-                    sx={{
-                      width: "100%",
-                    }}
-                  >
-                    <TableCell align="left">Descripción</TableCell>
-                    <TableCell align="center" sx={{ width: "150px" }}>
-                      Acciones
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>{taskTableRows(true)}</TableBody>
-              </Table>
-            ) : (
-              <Typography>No tiene tareas completadas.</Typography>
-            )}
+            <Table
+              aria-label="simple table"
+              sx={{ width: "100%", marginDown: "10px" }}
+            >
+              <TableHead>
+                <TableRow
+                  sx={{
+                    width: "100%",
+                  }}
+                >
+                  <TableCell align="left">Descripción</TableCell>
+                  <TableCell align="center" sx={{ width: "150px" }}>
+                    Acciones
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{taskTableRows(true)}</TableBody>
+            </Table>
           </TableContainer>
         )}
-
         <Snackbar
           open={errorOpenFirst}
           autoHideDuration={2000}

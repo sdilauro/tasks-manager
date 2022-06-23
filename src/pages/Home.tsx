@@ -1,5 +1,6 @@
 import {
   Alert,
+  Button,
   Paper,
   Snackbar,
   Table,
@@ -19,7 +20,8 @@ import { TaskProp } from "../Interfaces"
 import React from "react"
 import { signOut, getAuth } from "firebase/auth"
 import { db } from "../utils/firebase"
-import { ref, set } from "firebase/database"
+import { get, onValue, ref, set } from "firebase/database"
+import { Console } from "console"
 
 const HomePage: FC = () => {
   const auth = getAuth()
@@ -41,12 +43,27 @@ const HomePage: FC = () => {
     localStorage.getItem("userName") || ""
   )
 
+  const [loading, setLoading] = useState<Boolean>(false)
+
   const [taskItems, setTaskItems] = useState<TaskProp[]>(
     JSON.parse(localStorage.getItem("tasks") || "")
   )
 
   const [showCompleted, setShowCompleted] = useState<boolean>(false)
 
+  const receivingData = async () => {
+    const uid: string = localStorage.getItem("uid") || ""
+    setLoading(true)
+    get(ref(db, `/${uid}`))
+      .then((response) => {
+        console.log(response.key(uid))
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log(error)
+        setLoading(false)
+      })
+  }
   //add Task to DB
   useEffect(() => {
     set(ref(db, `/${localStorage.getItem("uid")}`), taskItems)
@@ -162,6 +179,7 @@ const HomePage: FC = () => {
       }}
     >
       <TaskBanner userName={userName} logout={logout} />
+      <Button onClick={receivingData}>Recibir data</Button>
 
       <TableContainer
         component={Paper}

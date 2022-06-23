@@ -21,14 +21,14 @@ interface Props {
 
 export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-  const [editedTaskName, setEditedTaskName] = useState<string>(task.name)
+  const [editedTaskName, setEditedTaskName] = useState<string>("")
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = () => {
     setAnchorEl(null)
-    setEditedTaskName(task.name)
+    setEditedTaskName("")
   }
 
   const open = Boolean(anchorEl)
@@ -92,18 +92,12 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
               variant="outlined"
               value={editedTaskName}
               onChange={updateEditTaskValue}
-              onKeyPress={(ev) => {
-                console.log(`Pressed keyCode ${ev.key}`)
-                if (ev.key === "Enter" || ev.key === "NumpadEnter") {
-                  editTask(task.name, editedTaskName)
-                  ev.preventDefault()
-                }
-              }}
             />
             <IconButton
               onClick={() => {
                 {
                   editTask(task.name, editedTaskName)
+                  setEditedTaskName("")
                 }
               }}
               color="inherit"

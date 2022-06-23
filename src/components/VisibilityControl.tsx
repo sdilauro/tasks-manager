@@ -2,7 +2,7 @@ import { Checkbox, FormControlLabel, FormGroup } from "@mui/material"
 
 export const VisibilityControl = (props: any) => {
   return (
-    <FormGroup sx={{ marginTop: "30px" }}>
+    <FormGroup>
       <FormControlLabel
         control={
           <Checkbox
