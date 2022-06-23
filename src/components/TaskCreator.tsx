@@ -1,10 +1,9 @@
 import { AddBox } from "@mui/icons-material"
 import { Container, IconButton, TextField } from "@mui/material"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 export const TaskCreator = (props: any) => {
   const [newTaskName, setNewTaskName] = useState<string>("")
-
   const updateNewTaskValue = (e: {
     target: { value: React.SetStateAction<string> }
   }) => setNewTaskName(e.target.value)
