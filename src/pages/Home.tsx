@@ -18,7 +18,6 @@ import { VisibilityControl } from "../components/VisibilityControl"
 import { TaskProp } from "../Interfaces"
 import React from "react"
 import { signOut, getAuth } from "firebase/auth"
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite"
 import { db } from "../utils/firebase"
 import { ref, set } from "firebase/database"
 
