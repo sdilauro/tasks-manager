@@ -19,7 +19,7 @@ import { TaskProp } from "../Interfaces"
 import React from "react"
 import { signOut, getAuth } from "firebase/auth"
 import { db } from "../utils/firebase"
-import { ref, set } from "firebase/database"
+import { onValue, ref, set } from "firebase/database"
 
 const HomePage: FC = () => {
   const auth = getAuth()
@@ -50,7 +50,20 @@ const HomePage: FC = () => {
   //add Task to DB
   useEffect(() => {
     set(ref(db, `/${localStorage.getItem("uid")}`), taskItems)
+   
   }, [taskItems])
+
+  useEffect(() => {
+    onValue(ref(db, `/${localStorage.getItem("uid")}`), (snapshot) => {
+      setTaskItems([])
+      const data = snapshot.val()
+      if (data !== null) {
+        Object.values(data).map(() => {
+          setTaskItems((taskItems) => [...taskItems])
+        })
+      }
+    })
+  }, [])
 
   useEffect(() => {
     localStorage.setItem("showCompleted", String(showCompleted))
