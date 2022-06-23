@@ -228,7 +228,7 @@ const App: FC = () => {
                       width: "100%",
                     }}
                   >
-                    <TableCell align="left">Descripción</TableCell>
+                    <TableCell align="left">Descripción </TableCell>
                     <TableCell align="center" sx={{ width: "150px" }}>
                       Acciones
                     </TableCell>
