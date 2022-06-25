@@ -36,6 +36,15 @@ export const TaskCreator = (props: any) => {
         variant="outlined"
         value={newTaskName}
         onChange={updateNewTaskValue}
+<<<<<<< HEAD
+=======
+        onKeyPress={(ev) => {
+          if (ev.key === "Enter" || ev.key === "NumpadEnter") {
+            createNewTask()
+            ev.preventDefault()
+          }
+        }}
+>>>>>>> v.2.0.0
       />
       <IconButton
         key={props.id}
