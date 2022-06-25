@@ -62,7 +62,7 @@ const HomePage: FC = () => {
   }
   const [loading, setLoading] = useState<boolean>(true)
   const [taskItems, setTaskItems] = useState<any[]>([])
-  const [showCompleted, setShowCompleted] = useState<boolean>(true)
+  const [showCompleted, setShowCompleted] = useState<boolean>(false)
   const [errorOpenFirst, setErrorOpenFirst] = useState<boolean>(false)
   const [congrats, setCongrats] = useState<boolean>(false)
   const [errorOpenSecond, setErrorOpenSecond] = useState<boolean>(false)
