@@ -1,4 +1,4 @@
-import { Avatar, Container, IconButton } from "@mui/material"
+import { Avatar, Box, Container, IconButton, Typography } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 
 interface Props {
@@ -21,7 +21,10 @@ export const TaskBanner = ({ logout }: Props) => {
         color: "white",
       }}
     >
-      <Avatar src={localStorage.getItem("profileUrl") || ""} />
+      <Box display="flex" alignContent={"center"} alignItems="center">
+        <Avatar src={localStorage.getItem("profileUrl") || ""} />
+        <Typography marginLeft="10px">Tareas</Typography>
+      </Box>
       <IconButton onClick={logout} color="inherit">
         <LogoutIcon />
       </IconButton>
