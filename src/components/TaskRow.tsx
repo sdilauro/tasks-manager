@@ -106,7 +106,6 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
               value={editedTaskName}
               onChange={updateEditTaskValue}
               onKeyPress={(ev) => {
-                console.log(`Pressed keyCode ${ev.key}`)
                 if (ev.key === "Enter" || ev.key === "NumpadEnter") {
                   editTask(editedTaskName, task.id, task.done, task.timestamp)
                   ev.preventDefault()
