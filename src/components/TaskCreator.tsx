@@ -33,7 +33,6 @@ export const TaskCreator = (props: any) => {
         value={newTaskName}
         onChange={updateNewTaskValue}
         onKeyPress={(ev) => {
-          console.log(`Pressed keyCode ${ev.key}`)
           if (ev.key === "Enter" || ev.key === "NumpadEnter") {
             createNewTask()
             ev.preventDefault()

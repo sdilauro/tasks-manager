@@ -9,14 +9,25 @@ import {
   Typography,
 } from "@mui/material"
 import { Container } from "@mui/system"
+import { FieldValue } from "firebase/firestore"
 import React, { useState } from "react"
-import { TaskProp } from "../Interfaces"
+import { Task } from "../Interfaces"
 
 interface Props {
-  task: TaskProp
-  deleteTask(taskNameToDelete: string): void
-  toggleTask(task: TaskProp): void
-  editTask(originalName: string, newName: string): void
+  task: Task
+  deleteTask(id: string): void
+  toggleTask(
+    name: string,
+    id: string,
+    done: boolean,
+    timestamp: FieldValue
+  ): void
+  editTask(
+    newName: string,
+    id: string,
+    done: boolean,
+    timestamp: FieldValue
+  ): void
 }
 
 export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
@@ -51,7 +62,9 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
       </TableCell>
       <TableCell align="center" sx={{ width: "150px" }}>
         <Checkbox
-          onChange={(e) => toggleTask(task)}
+          onChange={(e) =>
+            toggleTask(task.name, task.id, task.done, task.timestamp)
+          }
           inputProps={{ "aria-label": "controlled" }}
           checked={task.done}
         />
@@ -95,7 +108,7 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
               onKeyPress={(ev) => {
                 console.log(`Pressed keyCode ${ev.key}`)
                 if (ev.key === "Enter" || ev.key === "NumpadEnter") {
-                  editTask(task.name, editedTaskName)
+                  editTask(editedTaskName, task.id, task.done, task.timestamp)
                   ev.preventDefault()
                 }
               }}
@@ -103,7 +116,7 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
             <IconButton
               onClick={() => {
                 {
-                  editTask(task.name, editedTaskName)
+                  editTask(editedTaskName, task.id, task.done, task.timestamp)
                 }
               }}
               color="inherit"
@@ -115,7 +128,7 @@ export const TaskRow = ({ task, deleteTask, toggleTask, editTask }: Props) => {
         </Popover>
         <IconButton
           onClick={() => {
-            deleteTask(task.name)
+            deleteTask(task.id)
           }}
         >
           <Delete />

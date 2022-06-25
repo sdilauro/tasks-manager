@@ -4,7 +4,6 @@ import LoginPage from "./pages/Login"
 
 import AuthRoute from "./components/AuthRoute"
 
-
 export interface IapplicationProps {}
 
 const Application: React.FunctionComponent<IapplicationProps> = (props) => {

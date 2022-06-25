@@ -1,13 +1,11 @@
-import { Container, IconButton, Typography } from "@mui/material"
-import React from "react"
+import { Avatar, Container, IconButton } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 
 interface Props {
-  userName: string
   logout(): void
 }
 
-export const TaskBanner = ({ userName, logout }: Props) => {
+export const TaskBanner = ({ logout }: Props) => {
   return (
     <Container
       sx={{
@@ -23,7 +21,7 @@ export const TaskBanner = ({ userName, logout }: Props) => {
         color: "white",
       }}
     >
-      <Typography>Lista de tareas</Typography>
+      <Avatar src={localStorage.getItem("profileUrl") || ""} />
       <IconButton onClick={logout} color="inherit">
         <LogoutIcon />
       </IconButton>
