@@ -17,7 +17,7 @@ import { TaskRow } from "../components/TaskRow"
 import { TaskBanner } from "../components/TaskBanner"
 import { TaskCreator } from "../components/TaskCreator"
 import { VisibilityControl } from "../components/VisibilityControl"
-import { Task, TaskProp } from "../Interfaces"
+import { Task } from "../Interfaces"
 import React from "react"
 import { signOut, getAuth } from "firebase/auth"
 import { db } from "../utils/firebase"
@@ -72,13 +72,10 @@ const HomePage: FC = () => {
     localStorage.getItem("uid") || ""
   )
 
-  useEffect(() => {
-    console.log(taskItems)
-  }, [taskItems])
-
   const deleteTask = async (id: string) => {
     deleteTaskOfDB(id, collectionName)
   }
+
   const toggleTask = (
     name: string,
     id: string,
@@ -88,6 +85,7 @@ const HomePage: FC = () => {
     toggleDoneDB(name, id, done, timestamp, collectionName)
     setCongrats(true)
   }
+
   const editTask = async (
     newName: string,
     id: string,
